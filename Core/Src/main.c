@@ -4,6 +4,18 @@
 #include <stdio.h>
 void SystemClock_Config(void);
 
+
+uint16_t uartFalg = 0;
+uint8_t rx_buf [6] = { 0, };
+
+
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) // Обработчик UART 
+{
+	
+}
+
+
 int main(void)
 {
 
@@ -18,7 +30,7 @@ int main(void)
   MX_TIM3_Init();
 	HAL_TIM_Base_Start(&htim2);
 	
-	
+	HAL_UART_Receive_IT(&huart1 ,rx_buf , 1 );
 	enum States { Max_reset, Max_init, Max_read, test };
 	enum States state = Max_reset;
 	
