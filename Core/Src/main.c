@@ -6,13 +6,22 @@ void SystemClock_Config(void);
 
 
 uint16_t uartFalg = 0;
-uint8_t rx_buf [6] = { 0, };
+uint8_t rx_buf [2] = { 0, };
 
 
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) // Обработчик UART 
 {
-	
+	if (rx_buf[0] == 0x01) 
+	{
+		HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+		rx_buf[0] = 0;
+	}
+	else
+	{
+		HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_3);
+	}
+	HAL_UART_Receive_IT(&huart1, rx_buf, 1);
 }
 
 
@@ -106,7 +115,7 @@ int main(void)
 	uint8_t down[33] = { 0, };
 	uint16_t countSeq = 0;
 	FCLK_on;
-
+	
 
   while (1)
 	  
