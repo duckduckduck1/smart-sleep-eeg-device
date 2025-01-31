@@ -14,10 +14,23 @@ enum States { Max_reset, Max_init, Max_read, test  };
 enum States state = Max_reset;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) // Обработчик UART 
 {
-	
-	if (rxCmd[0] == 0x0a && cmdBuffer[rxCounter - 1] == 0x0d)
+	////////// Cистема команд ///////////////////////////
+	// 
+	//	0			1			2			3
+	//[on/off]	  [pwm]		  [0x0D]	  [0x0A]
+	//
+	// 0 bit  - on/off - бит включения/выключения PWM 
+	//		0x01 - on
+	//		0x00 - off
+	//1 bit - pwm - Duty cycle PWM 
+	//	0x00 - 0
+	//	0x01 - 1/249
+	//	....
+	//2 & 3 - константный конец пакета 
+// ////////////////////////////////////////////////////////
+	if (rxCmd[0] == 0x0a && cmdBuffer[rxCounter - 1] == 0x0d)     
 	{
-		cmdBuffer[rxCounter] = rxCmd[0];
+		cmdBuffer[rxCounter] = rxCmd[0];						
 		sizeMSg = rxCounter + 1;
 
 		if (cmdBuffer[0] == 0x01 && sizeMSg == 4) 
