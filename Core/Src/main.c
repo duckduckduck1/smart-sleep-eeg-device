@@ -6,22 +6,46 @@ void SystemClock_Config(void);
 
 
 uint16_t uartFalg = 0;
-uint8_t rx_buf [2] = { 0, };
-
-
-
+uint8_t rxCmd [2] = { 0, };
+uint8_t cmdBuffer[50] = { 0, };
+volatile int rxCounter = 0;
+volatile int sizeMSg = 0;
+enum States { Max_reset, Max_init, Max_read, test  };
+enum States state = Max_reset;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) // Обработчик UART 
 {
-	if (rx_buf[0] == 0x01) 
+	
+	if (rxCmd[0] == 0x0a && cmdBuffer[rxCounter - 1] == 0x0d)
 	{
-		HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-		rx_buf[0] = 0;
+		cmdBuffer[rxCounter] = rxCmd[0];
+		sizeMSg = rxCounter + 1;
+
+		if (cmdBuffer[0] == 0x01 && sizeMSg == 4) 
+		{
+			
+			if (cmdBuffer[1] > 249)
+			{
+				cmdBuffer[1] = 249;
+			}
+			SetDuty(cmdBuffer[1]);
+			HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+		}
+		else if(cmdBuffer[0] == 0x00)
+		{
+			HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_3);
+		}
+		sizeMSg = 0;
+		rxCounter = 0;
+
+		
 	}
 	else
 	{
-		HAL_TIM_PWM_Stop(&htim2, TIM_CHANNEL_3);
+		cmdBuffer[rxCounter] = rxCmd[0];
+		rxCounter++;
 	}
-	HAL_UART_Receive_IT(&huart1, rx_buf, 1);
+
+	HAL_UART_Receive_IT(&huart1, rxCmd, 1);
 }
 
 
@@ -39,9 +63,8 @@ int main(void)
   MX_TIM3_Init();
 	HAL_TIM_Base_Start(&htim2);
 	
-	HAL_UART_Receive_IT(&huart1 ,rx_buf , 1 );
-	enum States { Max_reset, Max_init, Max_read, test };
-	enum States state = Max_reset;
+	HAL_UART_Receive_IT(&huart1 ,rxCmd , 1 );
+	
 	
 	struct CNFG_GEN_init cnfg_gen = {0, };
 	struct CNFG_GEN_init cnfg_gen_read = {0,};
@@ -214,6 +237,11 @@ void ClearBuff_32bit(uint32_t *buf, uint16_t size)
 	}
 }
 
+void SetDuty(uint8_t duty)
+{
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, (duty));
+		
+}
 
 //Функция принимает младший байт из пакета для проверки Etag
 // Valid- valid - 0x00 
