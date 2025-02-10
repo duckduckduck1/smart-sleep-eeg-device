@@ -39,7 +39,8 @@ extern "C" {
 
 	
 	void ClearBuff_32bit(uint32_t *buf, uint16_t size);
-void Error_Handler(void);
+	void SetDuty(uint8_t duty);
+	void Error_Handler(void);
 
 
 #ifdef __cplusplus
