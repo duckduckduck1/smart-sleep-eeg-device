@@ -109,8 +109,9 @@ hardware/                 схемотехника, три проекта Altium
   EEG_MASTER_REV2/        основная плата: STM32, JDY-16, питание
   MAX_V5/                 аналоговый тракт на MAX30003
   EEG_Head_Mouse V1/      головной модуль с электродами
-datasheets/               документация на MAX30003 и STM32F103
-docs/hardware.md          что за платы и как связаны
+docs/
+  hardware.md             что за платы и как связаны
+  datasheets/             документация на MAX30003 и STM32F103
 EEG_sample.ioc            конфигурация CubeMX
 STM32F103C8TX_FLASH.ld    скрипт компоновки
 ```
