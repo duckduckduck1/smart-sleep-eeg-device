@@ -351,10 +351,10 @@
     <None Include="stm32.props">
       <Filter>Source files\Device-specific files</Filter>
     </None>
-    <None Include="Test_eeg-Debug.vgdbsettings">
+    <None Include="smart-sleep-eeg-device-Debug.vgdbsettings">
       <Filter>VisualGDB settings</Filter>
     </None>
-    <None Include="Test_eeg-Release.vgdbsettings">
+    <None Include="smart-sleep-eeg-device-Release.vgdbsettings">
       <Filter>VisualGDB settings</Filter>
     </None>
     <None Include="stm32.xml">

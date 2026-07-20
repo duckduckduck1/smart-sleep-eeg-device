@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <VisualGDBProjectSettings2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ConfigurationName>Debug</ConfigurationName>
+  <ConfigurationName>Release</ConfigurationName>
   <Project xsi:type="com.visualgdb.project.embedded">
     <CustomSourceDirectories>
       <Directories />
@@ -22,7 +22,7 @@
         <Revision>0</Revision>
       </Version>
     </ToolchainID>
-    <ProjectFile>Test_eeg.vcxproj</ProjectFile>
+    <ProjectFile>smart-sleep-eeg-device.vcxproj</ProjectFile>
     <ParallelJobCount>0</ParallelJobCount>
     <SuppressDirectoryChangeMessages>true</SuppressDirectoryChangeMessages>
     <BuildAsRoot>false</BuildAsRoot>
@@ -45,7 +45,6 @@
     <ShowMessageAfterExecuting>true</ShowMessageAfterExecuting>
   </CustomShortcuts>
   <UserDefinedVariables />
-  <ImportedPropertySheets />
   <CodeSense>
     <Enabled>Unknown</Enabled>
     <ExtraSettings>
@@ -58,8 +57,6 @@
       <Enabled>false</Enabled>
     </CodeAnalyzerSettings>
   </CodeSense>
-  <Configurations />
-  <ProgramArgumentsSuggestions />
   <Debug xsi:type="com.visualgdb.debug.embedded">
     <AdditionalStartupCommands />
     <AdditionalGDBSettings>
@@ -95,7 +92,6 @@
       <MaxBreakpointLimit>0</MaxBreakpointLimit>
       <EnableVerboseMode>true</EnableVerboseMode>
       <EnablePrettyPrinters>false</EnablePrettyPrinters>
-      <EnableAbsolutePathReporting>true</EnableAbsolutePathReporting>
     </AdditionalGDBSettings>
     <DebugMethod>
       <ID>com.sysprogs.arm.openocd</ID>
