@@ -39,7 +39,11 @@ Head_Mouse            MAX_V5              EEG_MASTER_REV2
 
 **Чтобы собрать прошивку** нужны Visual Studio с
 [VisualGDB](https://visualgdb.com/) и программатор ST-Link. Решение —
-`firmware/Test_eeg/Test_eeg.sln`, заливка по SWD.
+`firmware/visualgdb/smart-sleep-eeg-device.sln`, заливка по SWD.
+
+При первой прошивке на новой машине почти наверняка потребуется поставить
+драйвер WinUSB на ST-Link — как именно, описано
+в [docs/firmware.md](docs/firmware.md#прошивка-не-идёт-error-open-failed).
 
 **Чтобы открыть схемы** нужен Altium Designer. Проекты — в `hardware/`.
 
@@ -55,7 +59,7 @@ Head_Mouse            MAX_V5              EEG_MASTER_REV2
 firmware/            прошивка STM32F103
   Core/              код от CubeMX и дописанная логика
   Drivers/           HAL и CMSIS от ST
-  Test_eeg/          проект VisualGDB и драйвер MAX30003
+  visualgdb/         проект VisualGDB и драйвер MAX30003
   EEG_sample.ioc     конфигурация CubeMX
 hardware/            схемотехника, три проекта Altium
   EEG_MASTER_REV2/   основная плата: STM32, JDY-16, питание
@@ -87,6 +91,9 @@ docs/                документация
   компонентов в репозитории не хранятся, см.
   [docs/hardware.md](docs/hardware.md#что-лежит-в-проектах-а-что-нет). На уже
   размещённые элементы это не влияет.
+- **Не прошивается, `Error: open failed`** — не установлен драйвер WinUSB на
+  ST-Link. Лечится через Zadig, см.
+  [docs/firmware.md](docs/firmware.md#прошивка-не-идёт-error-open-failed).
 - **Устройство не находится по Bluetooth** — имя задаётся прошивкой командой
   `AT+NAMEEEG` при старте; ищите `EEG`.
 
